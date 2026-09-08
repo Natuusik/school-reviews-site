@@ -3,27 +3,33 @@ const mysql = require('mysql2');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+
+// Умный порт: берет порт хостинга в интернете, либо 3000 для дома
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// Умное подключение: если сайт в интернете, берет доступы из настроек Render. 
+// Если запускаете дома — автоматически подставляет ваш домашний root и 123456!
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Nat@123456', 
-    database: 'minisite_db'
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '123456', 
+    database: process.env.DB_NAME || 'minisite_db',
+    port: process.env.DB_PORT || 3306
 });
 
 db.connect((err) => {
     if (err) {
-        console.error('Ошибка подключения к MySQL:', err.message);
+        // Выводим полную ошибку, чтобы её было видно в логах
+        console.error('❌ Ошибка подключения к MySQL:', err);
         return;
     }
     console.log('✨ Успешно подключено к базе данных MySQL!');
 });
 
-// 1. МАРШРУТ: Получить все доступные темы для формы
+// 1. МАРШРУТ: Получить все доступные темы
 app.get('/api/categories', (req, res) => {
     db.query('SELECT * FROM categories', (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -31,7 +37,7 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
-// 2. МАРШРУТ: Получить все отзывы вместе с названиями их тем
+// 2. МАРШРУТ: Получить все отзывы
 app.get('/api/reviews', (req, res) => {
     const sql = `
         SELECT reviews.*, categories.name AS category_name 
@@ -45,7 +51,7 @@ app.get('/api/reviews', (req, res) => {
     });
 });
 
-// 3. МАРШРУТ: Сохранить новый отзыв (теперь с category_id)
+// 3. МАРШРУТ: Сохранить новый отзыв
 app.post('/api/reviews', (req, res) => {
     const { username, rating, review_text, category_id } = req.body;
     const sql = 'INSERT INTO reviews (username, rating, review_text, category_id) VALUES (?, ?, ?, ?)';
@@ -56,7 +62,7 @@ app.post('/api/reviews', (req, res) => {
     });
 });
 
-// 4. МАРШРУТ: Удалить один отзыв
+// 4. МАРШРУТ: Удалить один отзыв (пароль: школа2026)
 app.delete('/api/reviews/:id', (req, res) => {
     const reviewId = req.params.id;
     db.query('DELETE FROM reviews WHERE id = ?', [reviewId], (err, result) => {
@@ -66,5 +72,5 @@ app.delete('/api/reviews/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен! Откройте в браузере: http://localhost:${PORT}`);
+    console.log(`Сервер запущен! Порт: ${PORT}`);
 });
