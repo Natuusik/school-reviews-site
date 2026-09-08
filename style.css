@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background-color: #f5f7fb;
+    padding: 20px;
+    color: #333;
+}
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.controls {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.backup-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+label {
+    font-weight: 600;
+    font-size: 14px;
+}
+input[type="number"] {
+    width: 80px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    padding: 6px 12px;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+button:hover {
+    background-color: #005a9e;
+}
+button.btn-secondary {
+    background-color: #2b88d8;
+}
+button.btn-success {
+    background-color: #107c41;
+}
+button.btn-success:hover {
+    background-color: #0b5930;
+}
+button.btn-danger-clear {
+    background-color: #a80000;
+}
+button.btn-danger-clear:hover {
+    background-color: #7d0000;
+}
+button.delete-btn {
+    background-color: #e81123;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+button.delete-btn:hover {
+    background-color: #b8101c;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f3f2f1;
+    font-weight: 600;
+}
+td input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 4px;
+    font-size: 14px;
+}
+td input:focus {
+    outline: 2px solid #0078d4;
+    background: #fff;
+}
+.readonly-cell {
+    background-color: #faf9f8;
+    font-weight: 600;
+}
+.total-row {
+    background-color: #f3f2f1;
+    font-weight: bold;
+}
+#fileInput {
+    display: none;
+}
+.name-cell-wrapper {
+    position: relative;
+}
+
+/* Обновленный контейнер для смешанных подсказок */
+.smart-suggestions-container {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 100;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    border-radius: 4px;
+}
+
+.suggestion-section-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+/* Список целых слов */
+.words-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 100px;
+    overflow-y: auto;
+}
+.words-list li {
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 3px;
+}
+.words-list li:hover {
+    background-color: #f3f2f1;
+    color: #0078d4;
+}
+
+/* Кнопки цифр */
+.digits-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.num-tag {
+    background-color: #eaeaea;
+    color: #333;
+    border: none;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.num-tag:hover {
+    background-color: #0078d4;
+    color: white;
+}
