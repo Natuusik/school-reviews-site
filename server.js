@@ -38,11 +38,11 @@ async function initDatabase() {
         `);
 
         // 3. Безопасное обновление тем: меняет названия по ID, но бережно сохраняет все старые отзывы!
-        await db.query("INSERT INTO categories (id, name) VALUES (1, '🎬 Фильмы и сериалы') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
-        await db.query("INSERT INTO categories (id, name) VALUES (2, '🎮 Компьютерные игры') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
-        await db.query("INSERT INTO categories (id, name) VALUES (3, '🎵 Музыка и треки') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
-        await db.query("INSERT INTO categories (id, name) VALUES (4, '🍕 Еда и рецепты') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
-        await db.query("INSERT INTO categories (id, name) VALUES (5, '📱 Гаджеты и технологии') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
+        await db.query("INSERT INTO categories (id, name) VALUES (1, '🍉 Школьная столовая') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
+        await db.query("INSERT INTO categories (id, name) VALUES (2, '📚 Уроки и обучение') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
+        await db.query("INSERT INTO categories (id, name) VALUES (3, '🎭 Мероприятия и праздники') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
+        await db.query("INSERT INTO categories (id, name) VALUES (4, '⚽ Спортивные секции и кружки') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
+        await db.query("INSERT INTO categories (id, name) VALUES (5, '💡 Общие предложения') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
         
         console.log('✨ База данных успешно проверена, новые темы применились без потери отзывов!');
     } catch (err) {
