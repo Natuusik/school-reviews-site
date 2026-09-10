@@ -37,7 +37,7 @@ async function initDatabase() {
             );
         `);
 
-        // Безопасное обновление тем по их ID (сохраняет старые отзывы)
+        // 3. Безопасное обновление тем: меняет названия по ID, но бережно сохраняет все старые отзывы!
         await db.query("INSERT INTO categories (id, name) VALUES (1, '🎬 Фильмы и сериалы') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
         await db.query("INSERT INTO categories (id, name) VALUES (2, '🎮 Компьютерные игры') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
         await db.query("INSERT INTO categories (id, name) VALUES (3, '🎵 Музыка и треки') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;");
@@ -50,7 +50,6 @@ async function initDatabase() {
     }
 }
 
-// 2. Подключаемся к базе данных
 db.connect((err) => {
     if (err) {
         console.error('❌ Ошибка подключения к PostgreSQL:', err);
@@ -59,7 +58,6 @@ db.connect((err) => {
     console.log('✨ Успешно подключено к базе данных PostgreSQL на Render!');
     initDatabase(); // Запускаем проверку структуры сразу после успешного подключения
 });
-
 // 1. МАРШРУТ: Получить все доступные темы
 app.get('/api/categories', (req, res) => {
     db.query('SELECT * FROM categories ORDER BY id ASC', (err, results) => {
